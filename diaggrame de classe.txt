@@ -1,0 +1,124 @@
+@startuml
+
+title Diagramme de classe
+
+
+class Machine {
+  +Int idMachine
+  +Long code
+  +String nom
+  +String type
+  +String marque
+  +Long reference
+  +String statut
+  +Date dateAcquisition
+  +String fournisseur
+  +String libellé
+  +String garantie
+  +afficherlistemachine()
+  +cherchermachine()
+  +ajoutermachine()
+  +suuprimermachine()
+}
+
+class Pièces_en_stock {
+  +String nomPièces
+  +Int quantité
+
+}
+
+class Demande_Pièces {
+   +Int Quantité
+   +Int prix
+
+}
+
+class Demande_Intervention {
+   +Int idDI
+
+
+}
+
+
+class Ordre_Intervention {
+  +Int idOI
+  +Date dateOI
+  +String clotureOI
+  +Date clotureOI
+  +Date dateDebut
+  +Date dateFin
+
+}
+
+class PlanningPreventif {
+   +String typePlanning
+   +String libellePlanning
+   +Date dateDebutIntervention
+   +Date dateFinIntervention
+   +String actions
+
+}
+
+
+class TypeMaintenance {
+
+}
+
+
+class MaintenancePréventive {
+   +Int idMPreventive
+   +String description
+   +Int durée
+
+}
+
+class MaintenanceCorrective {
+   +Int idMCorrective
+   +String description
+   +Int durée
+}
+
+class InterventionMachine {
+   +Int idIntervention
+   +Date dateIntervention
+   +String description
+
+}
+
+class Panne {
+   +Int idPanne
+   +String typePanne
+   +String descriptionPanne
+
+
+}
+
+
+class Etape {
+   +Int idEtape
+   +Int numero
+   +String description
+   +Int durée
+   +String outils
+
+}
+
+class Facture_soustraitance {
+   +Int codeF
+   +Date dateF
+   +Int valeurPièces
+   +Int montant 
+}
+
+TypeMaintenance<|--MaintenanceCorrective
+TypeMaintenance<|--MaintenancePréventive
+MaintenancePréventive "1"--"1..*" PlanningPreventif
+MaintenanceCorrective "1"--"1..*" Panne
+Ordre_Intervention "1"--"1" TypeMaintenance
+Ordre_Intervention "1"--"1..*" Machine
+Etape "1"--"1..*" TypeMaintenance
+Pièces_en_stock "1"--"1..*" Demande_Pièces
+Ordre_Intervention "1"--"1" Facture_soustraitance
+Machine "1"--"1..*" InterventionMachine
+Demande_Intervention "1"--"1" Ordre_Intervention
+@enduml
